@@ -1,10 +1,14 @@
-FROM nginx:alpine
+FROM nginx:stable-alpine
 
-# Remove default nginx static assets
+# Remove any default content
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy static assets over
-COPY . /usr/share/nginx/html
+# Copy only the necessary files
+COPY index.html /usr/share/nginx/html/index.html
+COPY ryavDeck.pdf /usr/share/nginx/html/ryavDeck.pdf
+
+# Ensure permissions are correct
+RUN chmod 644 /usr/share/nginx/html/index.html /usr/share/nginx/html/ryavDeck.pdf
 
 EXPOSE 80
 
